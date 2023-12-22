@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LIME: Localized Image Editing via Attention Regularization in Diffusion Models</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.ico">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
+  <script defer src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">LIME: Localized Image Editing via Attention Regularization in Diffusion Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://enis.dev">Enis Simsar</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://alessiotonioni.github.io/">Alessio Tonioni</a><sup>*,3</sup>,</span>
+            <span class="author-block">
+              <a href="https://xianyongqin.github.io/">Yongqin Xian</a><sup>*,3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://da.inf.ethz.ch/">Thomas Hofmann</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://federicotombari.github.io/">Federico Tombari</a><sup>2,3</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>ETH Zürich - Data Analytics Lab,</span>
+            <span class="author-block"><sup>2</sup>Technical University of Munich,</span>
+            <span class="author-block"><sup>3</sup>Google Switzerland</span>
+          </div>
+
+          <div class="is-size-7 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal advising.</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2312.09256"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2312.09256"
+                    class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/enisimsar/LIME"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Paper teaser. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content">
+          <!-- <h2 class="title is-3">Teaser</h2> -->
+          <div>
+            <figure>
+              <img src="static/images/teaser.png" alt="Italian Trulli">
+              <figcaption>Figure 1: <b>LIME: Localized IMage Editing.</b> Our method edits an image based 
+                on a single text prompt without needing customized datasets
+                or fine-tuning. The four examples are taken from established papers [25, 46, 47] and compare our edits with the respective state-of-the-art
+                models. The addition of LIME improves all models and allows localized edits that preserve the rest of the image untouched.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Paper teaser. -->
+
+    <br>
+
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Diffusion models (DMs) have gained prominence due to their ability to generate high-quality, varied images, with recent advancements in text-to-image generation. The research focus is now shifting towards the controllability of DMs. A significant challenge within this domain is localized editing, where specific areas of an image are modified without affecting the rest of the content. This paper introduces LIME for localized image editing in diffusion models that do not require user-specified regions of interest (RoI) or additional text input. Our method employs features from pre-trained methods and a simple clustering technique to obtain precise semantic segmentation maps. Then, by leveraging cross-attention maps, it refines these segments for localized edits. Finally, we propose a novel cross-attention regularization technique that penalizes unrelated cross-attention probabilities in the RoI during the denoising steps, ensuring localized edits. Our approach, without re-training and fine-tuning, consistently improves the performance of existing methods in various editing benchmarks.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!--/ Method -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="content">
+          <h2 class="title is-3">Method</h2>
+          <div class="columns is-centered">
+
+            <!-- Edit Localization. -->
+            <div class="column">
+              <div class="content">
+                <h3 class="title is-4">Edit Localization</h3>
+                <h4 class="title is-5">Segmentation</h4>
+                <p>                
+                  The segmentation approach differs from previous methods by utilizing InstructPix2Pix (IP2P) and targeting features conditioned on the original image. It leverages multiple layers of the U-Net architecture to extract features, favoring intermediate features over attention maps due to their superior semantic encoding capabilities. This process involves a multi-resolution fusion strategy, combining feature maps of different resolutions to improve segmentation accuracy. Different resolutions capture varying semantic components, as seen Fig. 2, and their fusion results in more robust feature representations.
+                </p>
+
+                <br>
+
+                <h4 class="title is-5">Localization</h4>
+                <p>
+                  For localization, our method identifies the Region of Interest (RoI) using cross-attention maps that are conditioned on both the input image and the edit instructions. These maps undergo resizing, combining, and normalization processes to focus on relevant text tokens, thereby identifying areas related to the editing instructions. A final cross-attention map is created to pinpoint the most significant pixels, and segments overlapping these pixels are combined to determine the RoI. This approach ensures precise and relevant localization for image edits.
+                </p>
+
+                <p>
+                  <figure>
+                    <img src="static/images/step1.png" alt="Edit Localization">
+                    <figcaption>Figure 2: <b>Segmentation and RoI finding.</b> <i>Resolution Xs</i> 
+                      demonstrates segmentation maps from different resolutions, while <i>Ours</i> 
+                      shows the segmentation map from our method. For the cross-attention map, the color yellow indicates high probability, and blue
+                      dots mark the 100 pixels with the highest probability. The last image shows the extracted RoI using blue dots and <i>Ours</i>.</figcaption>
+                  </figure>
+                </p>
+              </div>
+            </div>
+            <!--/ Edit Localization. -->
+      
+            <!-- Edit Application. -->
+            <div class="column">
+              <h3 class="title is-4">Edit Application</h3>
+              <div class="columns is-centered">
+                <div class="column content">
+                  <p>
+                    This section describes a localized editing technique within the IP2P framework, designed to manipulate attention scores in the RoI while maintaining the integrity of the rest of the image. This technique diverges from previous methods by focusing on attention scores rather than noise space. It involves a targeted attention regularization process that selectively reduces the influence of unrelated tokens (<i>e.g.,</i> &lt; start of text &gt;, padding, and stop words) within the RoI. The process adjusts the attention scores within the RoI to minimize the impact of these unrelated tokens during the softmax normalization, ensuring that higher attention scores are assigned to tokens relevant to the editing instructions.
+                  </p>
+
+                  <br>
+
+                  <h4 class="title is-5">Attention Regularization</h4>
+                  <p>
+                    The attention regularization approach enhances the precision and effectiveness of edits by ensuring they are focused on the intended areas without affecting the surrounding context. The method employs a sophisticated regularization technique that modifies the dot product of cross-attention layers for unwanted tokens, essentially reducing their influence in the RoI. By doing so, it achieves an optimal balance between targeted editing and preserving the original image context. This technique improves the localization of edits in the IP2P model without requiring additional training or fine-tuning, thus conserving computational resources and time.
+                  </p>
+
+                  <p>
+                    <figure>
+                      <img src="static/images/step2.png" alt="Edit Application">
+                      <figcaption>Figure 3: <b>Attention Regularization.</b> Our method selectively regularizes unrelated tokens within the RoI, ensuring precise, context-aware edits without the need for additional model training. After attention regularization, the probabilities for the related tokens are
+                      attending the RoI, as illustrated in the second row.</figcaption>
+                    </figure>
+                  </p>
+                </div>
+      
+              </div>
+            </div>
+            <!-- Edit Application. -->
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Method -->
+
+    <!--/ Experiments -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Experiments</h2>
+        <h3 class="title is-4">Qualitative Results</h3>
+        <p>
+          Figure 4 presents qualitative examples for various editing tasks. These tasks include editing large segments, altering textures, editing multiple segments simultaneously, and adding, replacing, or removing objects. The first column displays the input images, with the corresponding edit instructions below each image. The second column illustrates the results generated by the base models without our proposed method. The third and fourth columns report the RoI identified by our method and the edited output produced by the base models when our regularization method is applied to these RoIs. As shown in Fig. 4, our method effectively implements the edit instructions while preserving the overall scene context.
+          In all presented results, our method surpasses current state-of-the-art models, including their fine-tuned versions on manually annotated datasets, <i>e.g.,</i> MagicBrush. Furthermore, without additional training, IP2P cannot perform a successful edit for (d) in Fig. 4 as also reported in HIVE. However, our proposed method achieves the desired edit without any additional training on the base model as shown Fig. 4 - (d).
+        </p>
+        <br>
+        <p>
+          <figure>
+            <img src="static/images/qualitative.png" alt="Qualitative Analysis">
+            <figcaption>Figure 4: <b>Qualitative Examples. </b> We test our method on different tasks: (a) editing a large segment, (b) altering texture, (c) editing multiple
+              segments, (d) adding, (e) replacing, and (f) removing objects. Examples are taken from established papers [20, 52, 53]. The integration of
+              LIME enhances the performance of all models, enabling localized edits while maintaining the integrity of the remaining image areas.</figcaption>
+          </figure>
+        </p>
+
+        <br>
+
+        <h3 class="title is-4">Quantitative Results</h3>
+        <p>
+          Our method outperforms all other methods on both the single- and multi-turn editing tasks on MagicBrush~(MB) benchmark, as seen in Tab. 1. Compared to the base models, our approach provides significant improvements and best results in terms of <em>L1</em>, <em>L2</em>, <em>CLIP-I</em>, and <em>DINO</em>. For the <em>CLIP-T</em> metric, which compares the edited image and caption to the ground truth, our method comes very close to the oracle scores of <span style="font-family:monospace;">0.309</span> for multi-turn and <span style="font-family:monospace;">0.307</span> for single-turn. This indicates that our edits accurately reflect the ground truth modifications. VQGAN-CLIP achieves the highest in <em>CLIP-T</em> by directly using CLIP for fine-tuning during inference. However, this can excessively alter images, leading to poorer performance in other metrics. Overall, the performance across metrics shows that our approach generates high-quality and localized image edits based on instructions, outperforming prior state-of-the-art methods.
+      </p>
+      
+        <br>
+        <p>
+          <figure>
+            <img src="static/images/magicbrush.png" alt="MagicBrush results">
+            <figcaption>Table 1: <b>Evaluation on MagicBrush Datase. </b> Results for single-turn and multi-turn settings are presented for each method and MB
+              stands for models fine-tuned on MagicBrush. The benchmark values for other approaches are sourced from MagicBrush, while values for our
+              proposed method are computed following the same protocol. Across both settings, our method surpasses the base models performance of
+              the compared models. The top-performing is highlighted in <b>bold</b>, while the second-best is denoted with <u>underline</u> for each block.</figcaption>
+          </figure>
+        </p>
+
+      </div>
+    </div>
+    <!--/ Experiments -->
+
+    <br>
+
+    <!--/ Experiments -->
+    <div class="content">
+      <h2 class="title is-3">Discussion</h2>
+      <div class="columns is-centered">
+
+        <!-- Usecase. -->
+        <div class="column">
+          <div class="content">
+            <h3 class="title is-4">Use-case</h3>
+            <p>
+              Figure 5 illustrates the application of our method in localized image editing tasks. Specifically, it demonstrates our method's proficiency in altering the color of specific objects: (a) <em>ottoman</em>, (b) <em>lamp</em>, (c) <em>carpet</em>, and (d) <em>curtain</em>. Unlike the baseline methods, which tend to entangle the object of interest with surrounding elements, our approach achieves precise, disentangled edits. This is not achieved by the baseline that tends to alter multiple objects simultaneously rather than isolating changes to the targeted region. The disentangled and localized edits showcased in Fig. 5 highlight the potential of <em>LIME</em> in end-user applications where object-specific edits are crucial.
+            </p>          
+
+            <p>
+              <figure>
+                <img src="static/images/usecase.png" alt="Usecase">
+                <figcaption>Figure 5: <b>A use-case of the proposed method.</b> Changing the color of different objects is shown by comparing baselines and our method. Our method performs disentangled and localized edits for different colors and different objects in the scene. * &copy; La Redoute Interieurs (<a href="https://www.laredoute.ch/" style="font-style: italic;">https://www.laredoute.ch/</a>).</figcaption>
+              </figure>
+            </p>
+          </div>
+        </div>
+        <!--/ Usecase. -->
+  
+        <!-- Conclusion -->
+        <div class="column">
+          <h3 class="title is-4">Conclusion</h3>
+          <div class="columns is-centered">
+            <div class="column content">
+              <p>
+                In this paper, we introduce, <em>LIME</em> a novel localized image editing technique using IP2P modified with explicit segmentation of the edit area and attention regularization. This approach effectively addresses the challenges of precision and context preservation in localized editing, eliminating the need for user input or model fine-tuning/retraining. The attention regularization step of our method can also be utilized with a user-specified mask, offering additional flexibility. Our method's robustness and effectiveness are validated through empirical evaluations, outperforming existing state-of-the-art methods. This advancement contributes to the continuous evolution of LDMs in image editing, pointing toward exciting possibilities for future research.
+              </p>
+
+              <br>
+
+              <h4 class="title is-5">Limitations</h4>
+              <p>
+                Figure 6 shows limitations of our method: (i) shows the limitation due to the pre-trained base model's capabilities. Our method can focus on the RoI and successfully apply edits but may alter the scene's style, particularly in color, due to the base model entanglement. However, our proposal significantly improves the edit compared to IP2P. (ii) illustrates how prompt content impacts edit quality. During editing, all tokens except <em>&lt;start of text&gt;</em>, <em>stop words</em>, and <em>padding</em>, affect the RoI, leading to feature mixing.
+              </p>
+
+              <p>
+                <figure>
+                  <img src="static/images/limitations.png" alt="Limitations">
+                  <figcaption>Figure 6: <b>Failure Cases & Limitations.</b> Left: Base model entan-
+                    glement. Right: Feature mixing issue.</figcaption>
+                </figure>
+              </p>
+            </div>
+  
+          </div>
+        </div>
+        <!-- Conclusion -->
+
+      </div>
+
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{simsar2023lime,
+      title={LIME: Localized Image Editing via Attention Regularization in Diffusion Models}, 
+      author={Enis Simsar and Alessio Tonioni and Yongqin Xian and Thomas Hofmann and Federico Tombari},
+      year={2023},
+      eprint={2312.09256},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}</code></pre>
+  </div>
+</section>
+
+<!-- <section class="section" id="ack">
+  <div class="container is-max-desktop content">
+      <h2 class="title">Acknowledgments</h2>
+      <p>We are grateful to Google University Relationship GCP Credit Program for the support of
+        this work by providing computational resources.</p>
+  </div>
+</section> -->
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://homes.cs.washington.edu/~kpar/nerfies/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
