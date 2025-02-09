@@ -19,10 +19,6 @@ conda create -n lime python=3.11
 pip install -r requirements.txt
 ```
 
-### Hugging Face Diffusers Library
-Our code relies also on Hugging Face's [diffusers](https://github.com/huggingface/diffusers) library for downloading the Stable Diffusion v1.5 model. 
-
-
 ## Usage
 
 To explore LIME, you can use the jupyter notebook `lime.ipynb`.
