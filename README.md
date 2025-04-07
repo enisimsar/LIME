@@ -28,12 +28,12 @@ To explore LIME, you can use the jupyter notebook `lime.ipynb`.
 If you find our work useful, please consider citing our paper:
 
 ```
-@misc{simsar2023lime,
-      title={LIME: Localized Image Editing via Attention Regularization in Diffusion Models}, 
-      author={Enis Simsar and Alessio Tonioni and Yongqin Xian and Thomas Hofmann and Federico Tombari},
-      year={2023},
-      eprint={2312.09256},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@InProceedings{Simsar_2025_WACV,
+    author    = {Simsar, Enis and Tonioni, Alessio and Xian, Yongqin and Hofmann, Thomas and Tombari, Federico},
+    title     = {LIME: Localized Image Editing via Attention Regularization in Diffusion Models},
+    booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
+    month     = {February},
+    year      = {2025},
+    pages     = {222-231}
 }
 ```
